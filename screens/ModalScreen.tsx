@@ -1,35 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { FlatList, StyleSheet } from "react-native";
+import { useSnapshot } from "valtio";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import EditScreenInfo from "../components/EditScreenInfo";
+import { Text, View } from "../components/Themed";
+import settings from "../proxies/settings";
+import Plate from "../components/Plate";
 
 export default function ModalScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/ModalScreen.tsx" />
+  const cars = useSnapshot(settings).carList;
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
+  return (
+    <FlatList
+      style={styles.container}
+      data={cars}
+      keyExtractor={(item) => item.id}
+      ListEmptyComponent={<Text>Engir bílar skráðir</Text>}
+      ItemSeparatorComponent={() => (
+        <View
+          lightColor="#CCCCCC"
+          darkColor="#333333"
+          style={{
+            height: StyleSheet.hairlineWidth,
+            marginLeft: 15,
+          }}
+        />
+      )}
+      renderItem={({ item }) => (
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 15,
+            paddingVertical: 10,
+          }}
+        >
+          <Plate plate={item.plate} />
+          <Text>{item.description}</Text>
+        </View>
+      )}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
 });

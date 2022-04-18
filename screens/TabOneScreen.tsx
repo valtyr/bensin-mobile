@@ -201,7 +201,17 @@ export default function TabOneScreen({
               paddingVertical: 10,
             }}
           >
-            <Logo company={item.company} />
+            <View
+              style={{
+                backgroundColor: "transparent",
+                shadowColor: "black",
+                shadowOpacity: 0.1,
+                shadowRadius: 5,
+                shadowOffset: { width: 0, height: 5 },
+              }}
+            >
+              <Logo company={item.company} />
+            </View>
             <View
               style={{
                 backgroundColor: "transparent",

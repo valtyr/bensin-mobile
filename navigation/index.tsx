@@ -62,7 +62,7 @@ function RootNavigator() {
         options={{ title: "Oops!" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="Bílar" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -92,7 +92,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate("Modal")}
+              onPress={() => navigation.navigate("Bílar")}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}
